@@ -21,7 +21,6 @@ using T = double;
 
 static const T lower_bound = -1.e5;
 static const T upper_bound = 1.e5;
-const size_t SIZE = 1e2;
 
 template <typename Container>
 using IsContainer = std::enable_if_t<std::disjunction_v<
@@ -42,8 +41,6 @@ template<typename  Container, IsContainer<Container> = true>
 Container create (size_t size) {
 	Container container;
 	container.resize(size);
-	for (size_t i = 0, j = size; i != j; ++i)
-		container[i] = prm(lower_bound, upper_bound);
 	return container;
 }
 
@@ -53,31 +50,32 @@ Container copy (const Container &container) {
 }
 
 template<typename  Container, IsContainer<Container> = true>
-Container address_at (const Container &container, size_t attempts) {
+Container address_at (Container const &container, size_t size) {
 	Container results;
-	results.resize(attempts);
-	int size = container.size();
-	for (size_t i = 0, j = attempts; i != j; ++i)
-		results.push_back(container.at(prm(0, size-1)));
+	results.resize(size);
+	int j {0};
+	for (size_t i = 0; i != size; ++i) {
+		j = prm(0, size - 1);
+		results.at(i) = container.at(j);
+	}
 	return results;
 }
 
 template<typename  Container, IsContainer<Container> = true>
-Container address_square_brackets (const Container &container, size_t attempts) {
+Container address_square_brackets (Container const &container, size_t size) {
 	Container results;
-	results.resize(attempts);
-	int size = container.size();
-	for (size_t i = 0, j = attempts; i != j; ++i)
-		results.push_back(container[prm(0, size)]);
+	results.resize(size);
+	int j {0};
+	for (size_t i = 0; i != size; ++i) {
+		j = prm(0, size - 1);
+		results[i] = container[j];
+	}
 	return results;
 }
 
 template<typename  Container, IsContainer<Container> = true>
 Container push_back_on_empty (size_t new_elem_count) {
 	Container container;
-	if constexpr (std::is_same_v<Container, boost::circular_buffer<typename Container::value_type>>){
-		container.resize(new_elem_count/(new_elem_count/10));
-	}
 	for (size_t i = 0, j = new_elem_count; i != j; ++i)
 		container.push_back(prm(lower_bound, upper_bound));
 	return container;

@@ -1,0 +1,35 @@
+You can have source code at
+https://github.com/andreysolovyev381/circular_buffer_bench
+
+
+/Users/elenasolovyeva/Documents/Cpp/Benchmarks/boost_circular_buffer/cmake-build-debug/cb_vs_others_bench
+2023-11-29T12:23:44+01:00
+Running /Users/elenasolovyeva/Documents/Cpp/Benchmarks/boost_circular_buffer/cmake-build-debug/cb_vs_others_bench
+Run on (4 X 1400 MHz CPU s)
+CPU Caches:
+  L1 Data 32 KiB
+  L1 Instruction 32 KiB
+  L2 Unified 256 KiB (x2)
+  L3 Unified 3072 KiB
+Load Average: 2.58, 2.74, 4.35
+---------------------------------------------------------------------
+Benchmark                           Time             CPU   Iterations
+---------------------------------------------------------------------
+...
+PopFrontVector/2                0.640 us        0.612 us      1220533
+PopFrontVector/8                 1.93 us         1.90 us       360271
+PopFrontVector/64                14.0 us         13.9 us        48070
+PopFrontVector/512                131 us          129 us         5610
+PopFrontVector/4096              2012 us         2000 us          345
+PopFrontDeque/2                 0.802 us        0.794 us       880437
+PopFrontDeque/8                 0.949 us        0.940 us       775031
+PopFrontDeque/64                 2.65 us         2.64 us       269554
+PopFrontDeque/512                15.2 us         15.1 us        45810
+PopFrontDeque/4096                111 us          110 us         6436
+PopFrontCB/2                    0.521 us        0.516 us      1000000
+PopFrontCB/8                    0.871 us        0.865 us       740670
+PopFrontCB/64                    3.83 us         3.81 us       176667
+PopFrontCB/512                   27.1 us         26.9 us        24668
+PopFrontCB/4096                   215 us          214 us         3194
+
+Process finished with exit code 0
