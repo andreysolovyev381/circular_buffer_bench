@@ -204,11 +204,43 @@ static void PopFrontCB(benchmark::State& state) {
 		auto v_copy = pop_front<boost::circular_buffer<T>> (v);
 		benchmark::DoNotOptimize(v_copy);
 	}
-	state.SetComplexityN(state.range(0));
 }
 BENCHMARK(PopFrontCB)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
 //-------------------------
 
+
+
+
+//-------------------------
+// push_back then pop_front
+
+static void PushBackPopFrontVector(benchmark::State& state) {
+	for (auto _ : state){
+		auto v = create<std::vector<T>> (state.range(0));
+		auto v_copy = push_back_then_pop_front<std::vector<T>> (v, state.range(0));
+		benchmark::DoNotOptimize(v_copy);
+	}
+}
+BENCHMARK(PushBackPopFrontVector)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+
+static void PushBackPopFrontDeque(benchmark::State& state) {
+	for (auto _ : state){
+		auto v = create<std::deque<T>> (state.range(0));
+		auto v_copy = push_back_then_pop_front<std::deque<T>> (v, state.range(0));
+		benchmark::DoNotOptimize(v_copy);
+	}
+}
+BENCHMARK(PushBackPopFrontDeque)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+
+static void PushBackPopFrontCB(benchmark::State& state) {
+	for (auto _ : state){
+		auto v = create<boost::circular_buffer<T>> (state.range(0));
+		auto v_copy = push_back_then_pop_front<boost::circular_buffer<T>> (v, state.range(0));
+		benchmark::DoNotOptimize(v_copy);
+	}
+}
+BENCHMARK(PushBackPopFrontCB)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+//-------------------------
 
 
 

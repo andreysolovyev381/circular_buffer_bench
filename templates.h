@@ -31,14 +31,14 @@ using IsContainer = std::enable_if_t<std::disjunction_v<
 
 int warm_up () {
 	int res {0};
-	for (size_t i = 0, j = 1e6; i != j; ++i) {
+	for (std::size_t i = 0, j = 1e6; i != j; ++i) {
 		res = prm(0, i);
 	}
 	return res;
 }
 
 template<typename  Container, IsContainer<Container> = true>
-Container create (size_t size) {
+Container create (std::size_t size) {
 	Container container;
 	container.resize(size);
 	return container;
@@ -50,11 +50,11 @@ Container copy (const Container &container) {
 }
 
 template<typename  Container, IsContainer<Container> = true>
-Container address_at (Container const &container, size_t size) {
+Container address_at (Container const &container, std::size_t size) {
 	Container results;
 	results.resize(size);
 	int j {0};
-	for (size_t i = 0; i != size; ++i) {
+	for (std::size_t i = 0; i != size; ++i) {
 		j = prm(0, size - 1);
 		results.at(i) = container.at(j);
 	}
@@ -62,11 +62,11 @@ Container address_at (Container const &container, size_t size) {
 }
 
 template<typename  Container, IsContainer<Container> = true>
-Container address_square_brackets (Container const &container, size_t size) {
+Container address_square_brackets (Container const &container, std::size_t size) {
 	Container results;
 	results.resize(size);
 	int j {0};
-	for (size_t i = 0; i != size; ++i) {
+	for (std::size_t i = 0; i != size; ++i) {
 		j = prm(0, size - 1);
 		results[i] = container[j];
 	}
@@ -74,10 +74,11 @@ Container address_square_brackets (Container const &container, size_t size) {
 }
 
 template<typename  Container, IsContainer<Container> = true>
-Container push_back_on_empty (size_t new_elem_count) {
+Container push_back_on_empty (std::size_t new_elem_count) {
 	Container container;
-	for (size_t i = 0, j = new_elem_count; i != j; ++i)
+	for (std::size_t i = 0, j = new_elem_count; i != j; ++i) {
 		container.push_back(prm(lower_bound, upper_bound));
+	}
 	return container;
 }
 
@@ -100,6 +101,30 @@ int pop_front (Container &container) {
 	}
 	return count;
 }
+
+
+template<typename  Container, IsContainer<Container> = true>
+int push_back_then_pop_front (Container &container, std::size_t iterations) {
+	assert(container.size() > 0);
+	int count {0};
+	for (std::size_t i = 0; i != iterations; ++i) {
+		double random_value = prm(0, iterations);
+		if constexpr (std::is_same_v<Container, std::vector<typename Container::value_type>>) {
+			container.push_back(random_value);
+			container.erase(container.begin());
+		}
+		else if constexpr (std::is_same_v<Container, std::deque<typename Container::value_type>>) {
+			container.push_back(random_value);
+			container.pop_back();
+		}
+		else if constexpr (std::is_same_v<Container, boost::circular_buffer<typename Container::value_type>>) {
+			container.push_back(random_value);
+		}
+		count = static_cast<int>(random_value);
+	}
+	return count;
+}
+
 
 
 #endif //CB_VS_OTHERS_BENCH_TEMPLATES_H
