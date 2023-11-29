@@ -16,20 +16,20 @@ Load Average: 2.58, 2.74, 4.35
 Benchmark                           Time             CPU   Iterations
 ---------------------------------------------------------------------
 ...
-PopFrontVector/2                0.640 us        0.612 us      1220533
-PopFrontVector/8                 1.93 us         1.90 us       360271
-PopFrontVector/64                14.0 us         13.9 us        48070
-PopFrontVector/512                131 us          129 us         5610
-PopFrontVector/4096              2012 us         2000 us          345
-PopFrontDeque/2                 0.802 us        0.794 us       880437
-PopFrontDeque/8                 0.949 us        0.940 us       775031
-PopFrontDeque/64                 2.65 us         2.64 us       269554
-PopFrontDeque/512                15.2 us         15.1 us        45810
-PopFrontDeque/4096                111 us          110 us         6436
-PopFrontCB/2                    0.521 us        0.516 us      1000000
-PopFrontCB/8                    0.871 us        0.865 us       740670
-PopFrontCB/64                    3.83 us         3.81 us       176667
-PopFrontCB/512                   27.1 us         26.9 us        24668
-PopFrontCB/4096                   215 us          214 us         3194
+PopFrontVector/2                0.110 us        0.109 us      6685003
+PopFrontVector/8                0.147 us        0.146 us      4812253
+PopFrontVector/64               0.754 us        0.747 us       993612
+PopFrontVector/512               19.1 us         18.9 us        36633
+PopFrontVector/4096              1101 us         1095 us          663
+PopFrontDeque/2                 0.271 us        0.271 us      2478464
+PopFrontDeque/8                 0.279 us        0.278 us      2440632
+PopFrontDeque/64                0.535 us        0.531 us      1158231
+PopFrontDeque/512                2.56 us         2.54 us       278927
+PopFrontDeque/4096               17.5 us         17.3 us        43508
+PopFrontCB/2                    0.115 us        0.114 us      6294002
+PopFrontCB/8                    0.129 us        0.126 us      5308339
+PopFrontCB/64                   0.299 us        0.298 us      2262188
+PopFrontCB/512                  0.863 us        0.853 us       875777
+PopFrontCB/4096                  5.82 us         5.79 us       121494
 
 Process finished with exit code 0
