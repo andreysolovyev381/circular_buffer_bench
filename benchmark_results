@@ -16,6 +16,18 @@ Load Average: 2.58, 2.74, 4.35
 Benchmark                           Time             CPU   Iterations
 ---------------------------------------------------------------------
 ...
+PushBackOnEmptyVector/2          2.93 us         2.90 us       237411
+PushBackOnEmptyVector/8          11.3 us         11.2 us        61920
+PushBackOnEmptyVector/64         89.3 us         88.4 us         8816
+PushBackOnEmptyVector/512         687 us          681 us         1113
+PushBackOnEmptyVector/4096       5605 us         5562 us          134
+PushBackOnEmptyDeque/2           2.86 us         2.84 us       228876
+PushBackOnEmptyDeque/8           10.9 us         10.8 us        67884
+PushBackOnEmptyDeque/64          84.3 us         83.6 us         8867
+PushBackOnEmptyDeque/512          682 us          677 us         1032
+PushBackOnEmptyDeque/4096        5582 us         5522 us          100
+
+...
 PopFrontVector/2                0.110 us        0.109 us      6685003
 PopFrontVector/8                0.147 us        0.146 us      4812253
 PopFrontVector/64               0.754 us        0.747 us       993612
