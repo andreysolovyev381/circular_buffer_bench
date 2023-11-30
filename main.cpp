@@ -2,8 +2,8 @@
 #include "templates.h"
 
 
-int const range_step {2};
-int const max_power_of_two {12};
+int const range_step {4};
+int const max_power_of_two {15};
 
 static void WarmUp (benchmark::State& state) {
 	[[maybe_unused]] int i {0};
