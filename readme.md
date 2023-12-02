@@ -21,7 +21,8 @@
 | std::vector                                                             | 37'145 ns |
 
 
-- It is expected, as fixed size container doesn't try to allocate memory while performing operations of storing incoming data.
+- The results are expected, as fixed size container doesn't try to allocate memory while performing operations of storing incoming data.
+- Works both for C++17 and C++20.
 - See the benchmark result in the dedicated file for the details.
 - If you are interested to get full source code for my implementation of fixed size circular buffer then please refer to the [respective repo](https://github.com/andreysolovyev381/circular_buffer_fixed).  
 

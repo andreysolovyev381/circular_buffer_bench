@@ -14,19 +14,52 @@
 namespace culib {
 
 	namespace requirements {
+		using BaseIndexType = std::size_t;
+#ifdef __cpp_concepts
 		template <typename Numeric>
 		concept IsIndex =
-		std::convertible_to<Numeric, std::size_t> &&
+		std::convertible_to<Numeric, BaseIndexType> &&
 		std::three_way_comparable<Numeric>;
+#else
 
+		template <typename Numeric, typename = void>
+		struct MaybeIndex : std::false_type {};
+
+		template <typename Numeric>
+		struct MaybeIndex<Numeric, std::void_t<
+				std::conjunction<
+					std::is_convertible<Numeric, BaseIndexType>,
+					std::conjunction<
+						decltype(std::declval<std::equal_to<Numeric>>()),
+						decltype(std::declval<std::less<Numeric>>()),
+						decltype(std::declval<std::greater<Numeric>>())
+									>
+								>
+				>> : std::true_type {};
+
+		template <typename Numeric>
+		static constexpr bool isIndex {MaybeIndex<Numeric>::value};
+
+		template <typename Numeric>
+		using IsIndex = std::enable_if_t<isIndex<Numeric>, bool>;
+
+		template <typename DataType>
+		using IsDefaultConstructible = std::enable_if_t<std::is_default_constructible_v<DataType>, bool>;
+#endif
 	}//!namespace
 
 	template <typename T>
 	class CircularBufferFixed {
 	public:
 		using value_type = T;
+
+#ifdef __cpp_concepts
 		template <typename Numeric>
 		requires requirements::IsIndex<Numeric>
+#else
+		template <typename Numeric,
+				requirements::IsIndex<Numeric> = true>
+#endif
 		explicit CircularBufferFixed (Numeric n, T defaultValue)
 				: sz 		{static_cast<std::int32_t>(n)}
 				, frontIdx 	{0}
@@ -57,12 +90,24 @@ namespace culib {
 
 		inline void updatePush() noexcept {
 			++backIdx;
+#if __has_cpp_attribute(unlikely)
 			if (backIdx == sz) [[unlikely]] {
+#else
+			if (__builtin_expect(backIdx == sz, 0)) {
+#endif
 				backIdx = 0;
 			}
+#if __has_cpp_attribute(unlikely)
 			if (backIdx == frontIdx) [[unlikely]] {
+#else
+			if (__builtin_expect(backIdx == frontIdx, 0)) {
+#endif
 				++frontIdx;
+#if __has_cpp_attribute(unlikely)
 				if (frontIdx == sz) [[unlikely]] {
+#else
+				if (__builtin_expect(frontIdx == sz, 0)) {
+#endif
 					frontIdx = 0;
 				}
 			}
@@ -70,9 +115,14 @@ namespace culib {
 
 		inline void updatePop() noexcept {
 			++frontIdx;
+#if __has_cpp_attribute(unlikely)
 			if (frontIdx == sz) [[unlikely]] {
+#else
+			if (__builtin_expect(frontIdx == sz, 0)) {
+#endif
 				frontIdx = 0;
 			}
 		}
+
 	};
 }//!namespace
