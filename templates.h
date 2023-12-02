@@ -121,7 +121,7 @@ int push_back_then_pop_front (Container &container, std::size_t iterations) {
 		}
 		else if constexpr (std::is_same_v<Container, std::deque<typename Container::value_type>>) {
 			container.push_back(double_value);
-			container.pop_back();
+			container.pop_front();
 		}
 		else if constexpr (std::is_same_v<Container, boost::circular_buffer<typename Container::value_type>>) {
 			container.push_back(double_value);

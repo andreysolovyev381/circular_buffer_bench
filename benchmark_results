@@ -1,7 +1,7 @@
 You can have source code at
 https://github.com/andreysolovyev381/circular_buffer_bench
 
-2023-12-02T20:28:31+01:00
+2023-12-02T21:29:34+01:00
 Running /Users/elenasolovyeva/Documents/Cpp/Benchmarks/boost_circular_buffer/cmake-build-release/cb_vs_others_bench
 Run on (4 X 1400 MHz CPU s)
 CPU Caches:
@@ -9,26 +9,30 @@ CPU Caches:
   L1 Instruction 32 KiB
   L2 Unified 256 KiB (x2)
   L3 Unified 3072 KiB
-Load Average: 3.55, 4.85, 5.55
-------------------------------------------------------------------------
-Benchmark                              Time             CPU   Iterations
-------------------------------------------------------------------------
-WarmUp                        1412401915 ns   1384785000 ns            1
-PushBackPopFrontCBFixed/64          73.6 ns         72.8 ns      8965738
-PushBackPopFrontCBFixed/512          545 ns          540 ns      1327996
-PushBackPopFrontCBFixed/4096        4385 ns         4345 ns       163479
-PushBackPopFrontCBFixed/32768      35322 ns        34688 ns        19857
-PushBackPopFrontDeque/64            86.2 ns         85.6 ns      8160791
-PushBackPopFrontDeque/512            567 ns          560 ns      1267221
-PushBackPopFrontDeque/4096          4408 ns         4368 ns       161390
-PushBackPopFrontDeque/32768        34912 ns        34541 ns        20675
-PushBackPopFrontCB/64                275 ns          273 ns      2570062
-PushBackPopFrontCB/512              2269 ns         2242 ns       321861
-PushBackPopFrontCB/4096            18626 ns        17962 ns        35506
-PushBackPopFrontCB/32768          145524 ns       143017 ns         5089
-PushBackPopFrontVector/64           1540 ns         1523 ns       885314
-PushBackPopFrontVector/512         35941 ns        35663 ns        19023
-PushBackPopFrontVector/4096      2301356 ns      2280847 ns          301
-PushBackPopFrontVector/32768   392348886 ns    388630000 ns            2
+Load Average: 5.21, 9.22, 9.54
+-------------------------------------------------------------------------
+Benchmark                               Time             CPU   Iterations
+-------------------------------------------------------------------------
+WarmUp                         1402682066 ns   1371418000 ns            1
+PushBackPopFrontVector/64             738 ns          731 ns       875153
+PushBackPopFrontVector/512          37859 ns        37617 ns        18163 <-------
+PushBackPopFrontVector/4096       2262299 ns      2247223 ns          305
+PushBackPopFrontVector/32768    390748382 ns    387546500 ns            2
+PushBackPopFrontVector/131072  7874533176 ns   7685312000 ns            1
+PushBackPopFrontDeque/64              341 ns          338 ns      2022280
+PushBackPopFrontDeque/512            2549 ns         2536 ns       264941 <-------
+PushBackPopFrontDeque/4096          20668 ns        20482 ns        34724
+PushBackPopFrontDeque/32768        165657 ns       164169 ns         4476
+PushBackPopFrontDeque/131072       704584 ns       696469 ns          918
+PushBackPopFrontCB/64                 268 ns          267 ns      2518158
+PushBackPopFrontCB/512               2165 ns         2154 ns       316741 <-------
+PushBackPopFrontCB/4096             17458 ns        17304 ns        40953
+PushBackPopFrontCB/32768           139908 ns       138743 ns         5194
+PushBackPopFrontCB/131072          557066 ns       553157 ns         1227
+PushBackPopFrontCBFixed/64           72.9 ns         72.4 ns     10068610
+PushBackPopFrontCBFixed/512           547 ns          542 ns      1231484 <-------
+PushBackPopFrontCBFixed/4096         4199 ns         4184 ns       163514
+PushBackPopFrontCBFixed/32768       40387 ns        37890 ns        20056
+PushBackPopFrontCBFixed/131072     141691 ns       140129 ns         5321
 
 Process finished with exit code 0

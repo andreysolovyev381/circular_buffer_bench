@@ -10,7 +10,6 @@
     * std::deque,
     * boost::circular_buffer,
     * own implementation of a circular buffer with a fixed size implementing a basic idea just to move both beggining/end pointers to container elements when new data arrives. 
-- It appears that pre-allocated std::deque is very hard to win from, maybe just using architecture-specific optimizations.
 
 **Benchmark of consequent immediate call of push_back() and pop_front()**
 
@@ -21,7 +20,6 @@
 | boost::circular_buffer                                                |  275 ns |
 | std::vector                                                           | 1540 ns |
 
-- **Moral is simple - don't invent a bicycle, use STL in a smart way.**
 
 - See the benchmark result in the dedicated file for the details.
 

@@ -3,7 +3,7 @@
 
 
 int constexpr range_start {64};
-int constexpr range_stop {32768};
+int constexpr range_stop {1<<17};
 
 static void WarmUp (benchmark::State& state) {
 	[[maybe_unused]] int i {0};
@@ -16,13 +16,13 @@ BENCHMARK(WarmUp);
 //-------------------------
 // push_back then pop_front
 
-static void PushBackPopFrontCBFixed(benchmark::State& state) {
-	auto v = create<culib::CircularBufferFixed<T>> (state.range(0));
+static void PushBackPopFrontVector(benchmark::State& state) {
+	auto v = create<std::vector<T>> (state.range(0));
 	for (auto _ : state){
-		push_back_then_pop_front<culib::CircularBufferFixed<T>> (v, state.range(0));
+		push_back_then_pop_front<std::vector<T>> (v, state.range(0));
 	}
 }
-BENCHMARK(PushBackPopFrontCBFixed)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
+BENCHMARK(PushBackPopFrontVector)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 
 static void PushBackPopFrontDeque(benchmark::State& state) {
 	auto v = create<std::deque<T>> (state.range(0));
@@ -40,13 +40,13 @@ static void PushBackPopFrontCB(benchmark::State& state) {
 }
 BENCHMARK(PushBackPopFrontCB)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 
-static void PushBackPopFrontVector(benchmark::State& state) {
-	auto v = create<std::vector<T>> (state.range(0));
+static void PushBackPopFrontCBFixed(benchmark::State& state) {
+	auto v = create<culib::CircularBufferFixed<T>> (state.range(0));
 	for (auto _ : state){
-		push_back_then_pop_front<std::vector<T>> (v, state.range(0));
+		push_back_then_pop_front<culib::CircularBufferFixed<T>> (v, state.range(0));
 	}
 }
-BENCHMARK(PushBackPopFrontVector)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
+BENCHMARK(PushBackPopFrontCBFixed)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 
 //-------------------------
 
