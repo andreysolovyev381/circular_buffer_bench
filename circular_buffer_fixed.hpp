@@ -92,7 +92,7 @@ namespace culib {
 			++backIdx;
 
 #ifdef __has_cpp_attribute
-#if __has_cpp_attribute(unlikely)
+	#if __has_cpp_attribute(unlikely)
 			if (backIdx == sz) [[unlikely]] {
 				backIdx = 0;
 			}
@@ -102,7 +102,7 @@ namespace culib {
 					frontIdx = 0;
 				}
 			}
-#else
+	#else
 			if (__builtin_expect(backIdx == sz, 0)) {
 				backIdx = 0;
 			}
@@ -112,7 +112,7 @@ namespace culib {
 					frontIdx = 0;
 				}
 			}
-#endif
+	#endif
 #endif
 		}
 
@@ -120,15 +120,15 @@ namespace culib {
 			++frontIdx;
 
 #ifdef __has_cpp_attribute
-#if __has_cpp_attribute(unlikely)
+	#if __has_cpp_attribute(unlikely)
 			if (frontIdx == sz) [[unlikely]] {
 				frontIdx = 0;
 			}
-#else
+	#else
 			if (__builtin_expect(frontIdx == sz, 0)) {
 				frontIdx = 0;
 			}
-#endif
+	#endif
 #endif
 		}
 
