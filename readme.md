@@ -13,14 +13,14 @@
 
 **Benchmark of consequent immediate call of push_back() and pop_front()**
 
-| Performance of preallocated container of 64 elements on 64 operations |    Time |
-|:----------------------------------------------------------------------|--------:|
-| handmade container                                                    | 73.6 ns |
-| std::deque                                                            | 86.2 ns |
-| boost::circular_buffer                                                |  275 ns |
-| std::vector                                                           | 1540 ns |
+| Performance of preallocated container of 512 elements on 512 operations |     Time |
+|:------------------------------------------------------------------------|---------:|
+| handmade container                                                      |   547 ns |
+| boost::circular_buffer                                                  |  2165 ns |
+| std::deque                                                              |  2549 ns |
+| std::vector                                                             | 37859 ns |
 
 
 - See the benchmark result in the dedicated file for the details.
 
-Feel free to use at your own risk, no guarantees of any kind are given whatsoever. 
+**Feel free to use at your own risk, no guarantees of any kind are given whatsoever.** 
