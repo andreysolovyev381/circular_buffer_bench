@@ -90,38 +90,46 @@ namespace culib {
 
 		inline void updatePush() noexcept {
 			++backIdx;
+
+#ifdef __has_cpp_attribute
 #if __has_cpp_attribute(unlikely)
 			if (backIdx == sz) [[unlikely]] {
-#else
-			if (__builtin_expect(backIdx == sz, 0)) {
-#endif
 				backIdx = 0;
 			}
-#if __has_cpp_attribute(unlikely)
 			if (backIdx == frontIdx) [[unlikely]] {
-#else
-			if (__builtin_expect(backIdx == frontIdx, 0)) {
-#endif
 				++frontIdx;
-#if __has_cpp_attribute(unlikely)
 				if (frontIdx == sz) [[unlikely]] {
-#else
-				if (__builtin_expect(frontIdx == sz, 0)) {
-#endif
 					frontIdx = 0;
 				}
 			}
+#else
+			if (__builtin_expect(backIdx == sz, 0)) {
+				backIdx = 0;
+			}
+			if (__builtin_expect(backIdx == frontIdx, 0)) {
+				++frontIdx;
+				if (__builtin_expect(frontIdx == sz, 0)) {
+					frontIdx = 0;
+				}
+			}
+#endif
+#endif
 		}
 
 		inline void updatePop() noexcept {
 			++frontIdx;
+
+#ifdef __has_cpp_attribute
 #if __has_cpp_attribute(unlikely)
 			if (frontIdx == sz) [[unlikely]] {
-#else
-			if (__builtin_expect(frontIdx == sz, 0)) {
-#endif
 				frontIdx = 0;
 			}
+#else
+			if (__builtin_expect(frontIdx == sz, 0)) {
+				frontIdx = 0;
+			}
+#endif
+#endif
 		}
 
 	};
