@@ -2,8 +2,8 @@
 #include "templates.h"
 
 
-int const range_step {4};
-int const max_power_of_two {15};
+int constexpr range_start {64};
+int constexpr range_stop {32768};
 
 static void WarmUp (benchmark::State& state) {
 	[[maybe_unused]] int i {0};
@@ -13,6 +13,46 @@ static void WarmUp (benchmark::State& state) {
 BENCHMARK(WarmUp);
 
 
+//-------------------------
+// push_back then pop_front
+
+static void PushBackPopFrontCBFixed(benchmark::State& state) {
+	auto v = create<culib::CircularBufferFixed<T>> (state.range(0));
+	for (auto _ : state){
+		push_back_then_pop_front<culib::CircularBufferFixed<T>> (v, state.range(0));
+	}
+}
+BENCHMARK(PushBackPopFrontCBFixed)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
+
+static void PushBackPopFrontDeque(benchmark::State& state) {
+	auto v = create<std::deque<T>> (state.range(0));
+	for (auto _ : state){
+		push_back_then_pop_front<std::deque<T>> (v, state.range(0));
+	}
+}
+BENCHMARK(PushBackPopFrontDeque)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
+
+static void PushBackPopFrontCB(benchmark::State& state) {
+	auto v = create<boost::circular_buffer<T>> (state.range(0));
+	for (auto _ : state){
+		push_back_then_pop_front<boost::circular_buffer<T>> (v, state.range(0));
+	}
+}
+BENCHMARK(PushBackPopFrontCB)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
+
+static void PushBackPopFrontVector(benchmark::State& state) {
+	auto v = create<std::vector<T>> (state.range(0));
+	for (auto _ : state){
+		push_back_then_pop_front<std::vector<T>> (v, state.range(0));
+	}
+}
+BENCHMARK(PushBackPopFrontVector)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
+
+//-------------------------
+
+
+
+/*
 
 //-------------------------
 // create containter
@@ -23,7 +63,7 @@ static void CreateVector(benchmark::State& state) {
 		benchmark::DoNotOptimize(v);
 	}
 }
-BENCHMARK(CreateVector)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(CreateVector)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 
 static void CreateDeque(benchmark::State& state) {
 	for (auto _ : state){
@@ -31,7 +71,7 @@ static void CreateDeque(benchmark::State& state) {
 		benchmark::DoNotOptimize(v);
 	}
 }
-BENCHMARK(CreateDeque)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(CreateDeque)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 
 static void CreateCB(benchmark::State& state) {
 	for (auto _ : state){
@@ -39,7 +79,7 @@ static void CreateCB(benchmark::State& state) {
 		benchmark::DoNotOptimize(v);
 	}
 }
-BENCHMARK(CreateCB)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(CreateCB)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 //-------------------------
 
 
@@ -55,7 +95,7 @@ static void CopyVector(benchmark::State& state) {
 		benchmark::DoNotOptimize(v_copy);
 	}
 }
-BENCHMARK(CopyVector)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(CopyVector)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 
 static void CopyDeque(benchmark::State& state) {
 	auto v = create<std::deque<T>> (state.range(0));
@@ -64,7 +104,7 @@ static void CopyDeque(benchmark::State& state) {
 		benchmark::DoNotOptimize(v_copy);
 	}
 }
-BENCHMARK(CopyDeque)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(CopyDeque)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 
 static void CopyCB(benchmark::State& state) {
 	auto v = create<boost::circular_buffer<T>> (state.range(0));
@@ -73,7 +113,7 @@ static void CopyCB(benchmark::State& state) {
 		benchmark::DoNotOptimize(v_copy);
 	}
 }
-BENCHMARK(CopyCB)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(CopyCB)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 //-------------------------
 
 
@@ -89,7 +129,7 @@ static void AtVector(benchmark::State& state) {
 		benchmark::DoNotOptimize(v_copy);
 	}
 }
-BENCHMARK(AtVector)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(AtVector)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 
 static void AtDeque(benchmark::State& state) {
 	auto v = create<std::deque<T>> (state.range(0));
@@ -98,7 +138,7 @@ static void AtDeque(benchmark::State& state) {
 		benchmark::DoNotOptimize(v_copy);
 	}
 }
-BENCHMARK(AtDeque)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(AtDeque)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 
 static void AtCB(benchmark::State& state) {
 	auto v = create<boost::circular_buffer<T>> (state.range(0));
@@ -107,7 +147,7 @@ static void AtCB(benchmark::State& state) {
 		benchmark::DoNotOptimize(v_copy);
 	}
 }
-BENCHMARK(AtCB)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(AtCB)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 //-------------------------
 
 
@@ -123,7 +163,7 @@ static void BracketsVector(benchmark::State& state) {
 		benchmark::DoNotOptimize(v_copy);
 	}
 }
-BENCHMARK(BracketsVector)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(BracketsVector)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 
 static void BracketsDeque(benchmark::State& state) {
 	auto v = create<std::deque<T>> (state.range(0));
@@ -132,7 +172,7 @@ static void BracketsDeque(benchmark::State& state) {
 		benchmark::DoNotOptimize(v_copy);
 	}
 }
-BENCHMARK(BracketsDeque)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(BracketsDeque)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 
 static void BracketsCB(benchmark::State& state) {
 	auto v = create<boost::circular_buffer<T>> (state.range(0));
@@ -141,7 +181,7 @@ static void BracketsCB(benchmark::State& state) {
 		benchmark::DoNotOptimize(v_copy);
 	}
 }
-BENCHMARK(BracketsCB)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(BracketsCB)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 //-------------------------
 
 
@@ -155,7 +195,7 @@ static void PushBackOnEmptyVector(benchmark::State& state) {
 		benchmark::DoNotOptimize(v_copy);
 	}
 }
-BENCHMARK(PushBackOnEmptyVector)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(PushBackOnEmptyVector)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 
 static void PushBackOnEmptyDeque(benchmark::State& state) {
 	for (auto _ : state){
@@ -163,7 +203,7 @@ static void PushBackOnEmptyDeque(benchmark::State& state) {
 		benchmark::DoNotOptimize(v_copy);
 	}
 }
-BENCHMARK(PushBackOnEmptyDeque)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(PushBackOnEmptyDeque)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 
 static void PushBackOnEmptyCB(benchmark::State& state) {
 	for (auto _ : state){
@@ -171,9 +211,8 @@ static void PushBackOnEmptyCB(benchmark::State& state) {
 		benchmark::DoNotOptimize(v_copy);
 	}
 }
-BENCHMARK(PushBackOnEmptyCB)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(PushBackOnEmptyCB)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 //-------------------------
-
 
 
 
@@ -187,7 +226,7 @@ static void PopFrontVector(benchmark::State& state) {
 		benchmark::DoNotOptimize(v_copy);
 	}
 }
-BENCHMARK(PopFrontVector)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(PopFrontVector)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 
 static void PopFrontDeque(benchmark::State& state) {
 	for (auto _ : state){
@@ -196,7 +235,7 @@ static void PopFrontDeque(benchmark::State& state) {
 		benchmark::DoNotOptimize(v_copy);
 	}
 }
-BENCHMARK(PopFrontDeque)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(PopFrontDeque)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 
 static void PopFrontCB(benchmark::State& state) {
 	for (auto _ : state){
@@ -205,42 +244,11 @@ static void PopFrontCB(benchmark::State& state) {
 		benchmark::DoNotOptimize(v_copy);
 	}
 }
-BENCHMARK(PopFrontCB)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
+BENCHMARK(PopFrontCB)->Range(range_start, range_stop)->Unit(benchmark::kNanosecond);
 //-------------------------
 
+*/
 
-
-
-//-------------------------
-// push_back then pop_front
-
-static void PushBackPopFrontVector(benchmark::State& state) {
-	for (auto _ : state){
-		auto v = create<std::vector<T>> (state.range(0));
-		auto v_copy = push_back_then_pop_front<std::vector<T>> (v, state.range(0));
-		benchmark::DoNotOptimize(v_copy);
-	}
-}
-BENCHMARK(PushBackPopFrontVector)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
-
-static void PushBackPopFrontDeque(benchmark::State& state) {
-	for (auto _ : state){
-		auto v = create<std::deque<T>> (state.range(0));
-		auto v_copy = push_back_then_pop_front<std::deque<T>> (v, state.range(0));
-		benchmark::DoNotOptimize(v_copy);
-	}
-}
-BENCHMARK(PushBackPopFrontDeque)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
-
-static void PushBackPopFrontCB(benchmark::State& state) {
-	for (auto _ : state){
-		auto v = create<boost::circular_buffer<T>> (state.range(0));
-		auto v_copy = push_back_then_pop_front<boost::circular_buffer<T>> (v, state.range(0));
-		benchmark::DoNotOptimize(v_copy);
-	}
-}
-BENCHMARK(PushBackPopFrontCB)->Range(range_step, 1<<max_power_of_two)->Unit(benchmark::kMicrosecond);
-//-------------------------
 
 
 

@@ -1,8 +1,7 @@
 You can have source code at
 https://github.com/andreysolovyev381/circular_buffer_bench
 
-/Users/elenasolovyeva/Documents/Cpp/Benchmarks/boost_circular_buffer/cmake-build-release/cb_vs_others_bench
-2023-11-30T11:48:45+01:00
+2023-12-02T20:28:31+01:00
 Running /Users/elenasolovyeva/Documents/Cpp/Benchmarks/boost_circular_buffer/cmake-build-release/cb_vs_others_bench
 Run on (4 X 1400 MHz CPU s)
 CPU Caches:
@@ -10,136 +9,26 @@ CPU Caches:
   L1 Instruction 32 KiB
   L2 Unified 256 KiB (x2)
   L3 Unified 3072 KiB
-Load Average: 4.25, 6.68, 5.11
------------------------------------------------------------------------
-Benchmark                             Time             CPU   Iterations
------------------------------------------------------------------------
-WarmUp                       1377312660 ns   1347692000 ns            1
-CreateVector/4                    0.109 us        0.108 us      6724174
-CreateVector/8                    0.118 us        0.115 us      6543707
-CreateVector/64                   0.202 us        0.200 us      3542815
-CreateVector/512                  0.162 us        0.160 us      4445517
-CreateVector/4096                 0.933 us        0.925 us       716281
-CreateVector/32768                 12.0 us         11.9 us        57966
-CreateDeque/4                     0.321 us        0.318 us      2354880
-CreateDeque/8                     0.303 us        0.301 us      2319294
-CreateDeque/64                    0.521 us        0.517 us      1388944
-CreateDeque/512                    2.19 us         2.17 us       309017
-CreateDeque/4096                   14.2 us         14.1 us        47922
-CreateDeque/32768                   106 us          105 us         5971
-CreateCB/4                        0.121 us        0.120 us      5143731
-CreateCB/8                        0.120 us        0.119 us      5921815
-CreateCB/64                       0.238 us        0.236 us      2954484
-CreateCB/512                      0.449 us        0.445 us      1518046
-CreateCB/4096                      2.66 us         2.63 us       256780
-CreateCB/32768                     21.5 us         21.3 us        33593
-CopyVector/4                      0.108 us        0.107 us      6797040
-CopyVector/8                      0.107 us        0.106 us      6537413
-CopyVector/64                     0.171 us        0.169 us      3885176
-CopyVector/512                    0.178 us        0.176 us      4112953
-CopyVector/4096                    1.79 us         1.77 us       409441
-CopyVector/32768                   17.9 us         17.7 us        40015
-CopyDeque/4                       0.295 us        0.292 us      2320839
-CopyDeque/8                       0.335 us        0.320 us      2231801
-CopyDeque/64                      0.495 us        0.490 us      1110776
-CopyDeque/512                      2.05 us         2.02 us       360429
-CopyDeque/4096                     13.7 us         13.5 us        54385
-CopyDeque/32768                     114 us          113 us         5989
-CopyCB/4                          0.108 us        0.107 us      6831468
-CopyCB/8                          0.109 us        0.108 us      6720237
-CopyCB/64                         0.247 us        0.245 us      2809090
-CopyCB/512                        0.432 us        0.426 us      1672592
-CopyCB/4096                        2.88 us         2.85 us       242546
-CopyCB/32768                       28.3 us         28.1 us        22963
-AtVector/4                         5.65 us         5.60 us       126447
-AtVector/8                         11.2 us         11.1 us        61739
-AtVector/64                        88.7 us         88.0 us         7398
-AtVector/512                        687 us          682 us          979
-AtVector/4096                      5548 us         5501 us          112
-AtVector/32768                    45346 us        44086 us           15
-AtDeque/4                          6.35 us         5.70 us       130673
-AtDeque/8                          10.9 us         10.8 us        69108
-AtDeque/64                         88.7 us         87.5 us         8421
-AtDeque/512                         732 us          722 us          926
-AtDeque/4096                       5583 us         5516 us          111
-AtDeque/32768                     47187 us        46739 us           14
-AtCB/4                             5.72 us         5.64 us       132125
-AtCB/8                             11.4 us         11.3 us        61178
-AtCB/64                            89.6 us         88.9 us         7331
-AtCB/512                            715 us          710 us          926
-AtCB/4096                          5743 us         5683 us          119
-AtCB/32768                        46161 us        45707 us           14
-BracketsVector/4                   5.69 us         5.63 us       132711
-BracketsVector/8                   11.2 us         11.1 us        62747
-BracketsVector/64                  90.5 us         89.6 us         8129
-BracketsVector/512                  688 us          675 us         1134
-BracketsVector/4096                5696 us         5641 us          120
-BracketsVector/32768              47217 us        46645 us           14
-BracketsDeque/4                    5.71 us         5.65 us       134375
-BracketsDeque/8                    11.2 us         11.1 us        62893
-BracketsDeque/64                   91.9 us         90.9 us         8074
-BracketsDeque/512                   718 us          709 us         1014
-BracketsDeque/4096                 5645 us         5600 us          117
-BracketsDeque/32768               46876 us        46420 us           15
-BracketsCB/4                       5.56 us         5.43 us       130165
-BracketsCB/8                       12.5 us         11.7 us        70671
-BracketsCB/64                      92.9 us         90.8 us         7965
-BracketsCB/512                      695 us          690 us          937
-BracketsCB/4096                    5624 us         5573 us          115
-BracketsCB/32768                  47818 us        47293 us           13
-PushBackOnEmptyVector/4            6.10 us         5.97 us       115681
-PushBackOnEmptyVector/8            11.6 us         11.4 us        57868
-PushBackOnEmptyVector/64           87.6 us         86.8 us         8116
-PushBackOnEmptyVector/512           683 us          679 us         1005
-PushBackOnEmptyVector/4096         5510 us         5464 us          116
-PushBackOnEmptyVector/32768       45252 us        44931 us           15
-PushBackOnEmptyDeque/4             5.65 us         5.60 us       136242
-PushBackOnEmptyDeque/8             10.7 us         10.6 us        64519
-PushBackOnEmptyDeque/64            87.1 us         86.1 us         7983
-PushBackOnEmptyDeque/512            722 us          711 us         1051
-PushBackOnEmptyDeque/4096          5789 us         5699 us          124
-PushBackOnEmptyDeque/32768        46947 us        46304 us           15
-PushBackOnEmptyCB/4                5.74 us         5.66 us       132903
-PushBackOnEmptyCB/8                11.1 us         11.0 us        60239
-PushBackOnEmptyCB/64               98.2 us         93.8 us         7734
-PushBackOnEmptyCB/512               704 us          696 us         1053
-PushBackOnEmptyCB/4096             5664 us         5577 us          126
-PushBackOnEmptyCB/32768           44114 us        43746 us           15
-PopFrontVector/4                  0.121 us        0.120 us      6107456
-PopFrontVector/8                  0.149 us        0.147 us      4812948
-PopFrontVector/64                 0.832 us        0.820 us       880426
-PopFrontVector/512                 20.1 us         19.9 us        36260
-PopFrontVector/4096                1126 us         1117 us          657
-PopFrontVector/32768             188886 us       187254 us            4
-PopFrontDeque/4                   0.281 us        0.279 us      2362383
-PopFrontDeque/8                   0.292 us        0.289 us      2281468
-PopFrontDeque/64                  0.539 us        0.535 us      1311574
-PopFrontDeque/512                  2.91 us         2.82 us       230103
-PopFrontDeque/4096                 18.2 us         18.0 us        40597
-PopFrontDeque/32768                 139 us          137 us         4379
-PopFrontCB/4                      0.132 us        0.129 us      5704321
-PopFrontCB/8                      0.127 us        0.126 us      5131062
-PopFrontCB/64                     0.298 us        0.295 us      2258254
-PopFrontCB/512                    0.947 us        0.920 us       877105
-PopFrontCB/4096                    5.90 us         5.83 us       118767
-PopFrontCB/32768                   48.7 us         48.2 us        15217
-PushBackPopFrontVector/4           5.70 us         5.64 us       114937
-PushBackPopFrontVector/8           11.6 us         10.4 us        63262
-PushBackPopFrontVector/64          93.5 us         83.9 us         9562
-PushBackPopFrontVector/512          759 us          707 us         1017
-PushBackPopFrontVector/4096        8884 us         8630 us           75
-PushBackPopFrontVector/32768     430727 us       426639 us            2
-PushBackPopFrontDeque/4            5.65 us         5.59 us       118285
-PushBackPopFrontDeque/8            11.0 us         10.8 us        64152
-PushBackPopFrontDeque/64           87.4 us         86.8 us         8182
-PushBackPopFrontDeque/512           758 us          735 us         1000
-PushBackPopFrontDeque/4096         5676 us         5619 us          131
-PushBackPopFrontDeque/32768       46383 us        45794 us           14
-PushBackPopFrontCB/4               5.77 us         5.69 us       127058
-PushBackPopFrontCB/8               11.3 us         11.2 us        61454
-PushBackPopFrontCB/64              92.6 us         90.9 us         7633
-PushBackPopFrontCB/512              733 us          715 us          911
-PushBackPopFrontCB/4096            5694 us         5628 us          137
-PushBackPopFrontCB/32768          44317 us        43940 us           15
+Load Average: 3.55, 4.85, 5.55
+------------------------------------------------------------------------
+Benchmark                              Time             CPU   Iterations
+------------------------------------------------------------------------
+WarmUp                        1412401915 ns   1384785000 ns            1
+PushBackPopFrontCBFixed/64          73.6 ns         72.8 ns      8965738
+PushBackPopFrontCBFixed/512          545 ns          540 ns      1327996
+PushBackPopFrontCBFixed/4096        4385 ns         4345 ns       163479
+PushBackPopFrontCBFixed/32768      35322 ns        34688 ns        19857
+PushBackPopFrontDeque/64            86.2 ns         85.6 ns      8160791
+PushBackPopFrontDeque/512            567 ns          560 ns      1267221
+PushBackPopFrontDeque/4096          4408 ns         4368 ns       161390
+PushBackPopFrontDeque/32768        34912 ns        34541 ns        20675
+PushBackPopFrontCB/64                275 ns          273 ns      2570062
+PushBackPopFrontCB/512              2269 ns         2242 ns       321861
+PushBackPopFrontCB/4096            18626 ns        17962 ns        35506
+PushBackPopFrontCB/32768          145524 ns       143017 ns         5089
+PushBackPopFrontVector/64           1540 ns         1523 ns       885314
+PushBackPopFrontVector/512         35941 ns        35663 ns        19023
+PushBackPopFrontVector/4096      2301356 ns      2280847 ns          301
+PushBackPopFrontVector/32768   392348886 ns    388630000 ns            2
 
 Process finished with exit code 0

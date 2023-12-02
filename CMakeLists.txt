@@ -24,7 +24,7 @@ set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 
-find_package (Boost 1.73 REQUIRED filesystem)
+find_package (Boost REQUIRED)
 if(Boost_FOUND)
     message(STATUS "MAIN: FOUND Boost, including and linking...")
     include_directories(${BOOST_ROOT})

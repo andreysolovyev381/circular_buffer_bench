@@ -9,6 +9,7 @@
 #include <vector>
 #include <deque>
 #include "boost/circular_buffer.hpp"
+#include "circular_buffer_fixed.hpp"
 
 #include <type_traits>
 #include <cassert>
@@ -21,12 +22,14 @@ using T = double;
 
 static const T lower_bound = -1.e5;
 static const T upper_bound = 1.e5;
+static double const double_value {42.5};
 
 template <typename Container>
 using IsContainer = std::enable_if_t<std::disjunction_v<
 		std::is_same<Container, std::deque<typename Container::value_type>>,
 		std::is_same<Container, std::vector<typename Container::value_type>>,
-		std::is_same<Container, boost::circular_buffer<typename Container::value_type>>
+		std::is_same<Container, boost::circular_buffer<typename Container::value_type>>,
+		std::is_same<Container, culib::CircularBufferFixed<typename Container::value_type>>
 >, bool>;
 
 int warm_up () {
@@ -39,9 +42,15 @@ int warm_up () {
 
 template<typename  Container, IsContainer<Container> = true>
 Container create (std::size_t size) {
-	Container container;
-	container.resize(size);
-	return container;
+	if constexpr (!std::is_same_v<Container, culib::CircularBufferFixed<typename Container::value_type>>) {
+		Container container;
+		container.resize(size);
+		return container;
+	}
+	else {
+		Container container(size, typename Container::value_type{} );
+		return container;
+	}
 }
 
 template<typename  Container, IsContainer<Container> = true>
@@ -51,8 +60,7 @@ Container copy (const Container &container) {
 
 template<typename  Container, IsContainer<Container> = true>
 Container address_at (Container const &container, std::size_t size) {
-	Container results;
-	results.resize(size);
+	Container results {create<Container>(size)};
 	int j {0};
 	for (std::size_t i = 0; i != size; ++i) {
 		j = prm(0, size - 1);
@@ -63,8 +71,7 @@ Container address_at (Container const &container, std::size_t size) {
 
 template<typename  Container, IsContainer<Container> = true>
 Container address_square_brackets (Container const &container, std::size_t size) {
-	Container results;
-	results.resize(size);
+	Container results {create<Container>(size)};
 	int j {0};
 	for (std::size_t i = 0; i != size; ++i) {
 		j = prm(0, size - 1);
@@ -77,7 +84,7 @@ template<typename  Container, IsContainer<Container> = true>
 Container push_back_on_empty (std::size_t new_elem_count) {
 	Container container;
 	for (std::size_t i = 0, j = new_elem_count; i != j; ++i) {
-		container.push_back(prm(lower_bound, upper_bound));
+		container.push_back(double_value);
 	}
 	return container;
 }
@@ -108,19 +115,22 @@ int push_back_then_pop_front (Container &container, std::size_t iterations) {
 	assert(container.size() > 0);
 	int count {0};
 	for (std::size_t i = 0; i != iterations; ++i) {
-		double random_value = prm(0, iterations);
 		if constexpr (std::is_same_v<Container, std::vector<typename Container::value_type>>) {
-			container.push_back(random_value);
+			container.push_back(double_value);
 			container.erase(container.begin());
 		}
 		else if constexpr (std::is_same_v<Container, std::deque<typename Container::value_type>>) {
-			container.push_back(random_value);
+			container.push_back(double_value);
 			container.pop_back();
 		}
 		else if constexpr (std::is_same_v<Container, boost::circular_buffer<typename Container::value_type>>) {
-			container.push_back(random_value);
+			container.push_back(double_value);
 		}
-		count = static_cast<int>(random_value);
+		else if constexpr (std::is_same_v<Container, culib::CircularBufferFixed<typename Container::value_type>>) {
+			container.push(double_value);
+			container.pop();
+		}
+		count += count / double_value;
 	}
 	return count;
 }
