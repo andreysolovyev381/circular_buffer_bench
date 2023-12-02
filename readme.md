@@ -9,18 +9,20 @@
     * std::vector,
     * std::deque,
     * boost::circular_buffer,
-    * own implementation of a circular buffer with a fixed size implementing a basic idea just to move both beggining/end pointers to container elements when new data arrives. 
+    * own implementation of a circular buffer with a fixed size with a basic idea just to move both begin/end pointers to container elements when new data arrives. 
 
 **Benchmark of consequent immediate call of push_back() and pop_front()**
 
-| Performance of preallocated container of 512 elements on 512 operations |     Time |
-|:------------------------------------------------------------------------|---------:|
-| handmade container                                                      |   547 ns |
-| boost::circular_buffer                                                  |  2165 ns |
-| std::deque                                                              |  2549 ns |
-| std::vector                                                             | 37859 ns |
+| Performance of preallocated container of 512 elements on 512 operations |      Time |
+|:------------------------------------------------------------------------|----------:|
+| fixed size circular buffer                                              |    414 ns |
+| boost::circular_buffer                                                  |  2'151 ns |
+| std::deque                                                              |  2'574 ns |
+| std::vector                                                             | 37'145 ns |
 
 
+- It is expected, as fixed size container doesn't try to allocate memory while performing operations of storing incoming data.
 - See the benchmark result in the dedicated file for the details.
+- If you are interested to get full source code for my implementation of fixed size circular buffer then please refer to the [respective repo](https://github.com/andreysolovyev381/circular_buffer_fixed).  
 
 **Feel free to use at your own risk, no guarantees of any kind are given whatsoever.** 

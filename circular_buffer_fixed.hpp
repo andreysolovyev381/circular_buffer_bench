@@ -11,8 +11,6 @@
 #include <stdexcept>
 #include <utility>
 
-#include <immintrin.h>
-
 namespace culib {
 
 	namespace requirements {
@@ -40,13 +38,13 @@ namespace culib {
 
 		void push(T t) noexcept {
 			updatePush();
-			_mm_prefetch((const void *)(&data[backIdx]), _MM_HINT_T0);
-			_mm_prefetch((const void *)(&t), _MM_HINT_T0);
 			data[backIdx] = std::move(t);
 		}
 
-		void pop() noexcept {
+		T& pop() noexcept {
+			T& res = data[frontIdx];
 			updatePop();
+			return res;
 		}
 
 		std::size_t size() const noexcept {

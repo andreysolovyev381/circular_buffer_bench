@@ -1,7 +1,7 @@
 You can have source code at
 https://github.com/andreysolovyev381/circular_buffer_bench
 
-2023-12-02T21:29:34+01:00
+2023-12-02T23:13:27+01:00
 Running /Users/elenasolovyeva/Documents/Cpp/Benchmarks/boost_circular_buffer/cmake-build-release/cb_vs_others_bench
 Run on (4 X 1400 MHz CPU s)
 CPU Caches:
@@ -9,30 +9,30 @@ CPU Caches:
   L1 Instruction 32 KiB
   L2 Unified 256 KiB (x2)
   L3 Unified 3072 KiB
-Load Average: 5.21, 9.22, 9.54
+Load Average: 3.35, 3.74, 5.69
 -------------------------------------------------------------------------
 Benchmark                               Time             CPU   Iterations
 -------------------------------------------------------------------------
-WarmUp                         1402682066 ns   1371418000 ns            1
-PushBackPopFrontVector/64             738 ns          731 ns       875153
-PushBackPopFrontVector/512          37859 ns        37617 ns        18163 <-------
-PushBackPopFrontVector/4096       2262299 ns      2247223 ns          305
-PushBackPopFrontVector/32768    390748382 ns    387546500 ns            2
-PushBackPopFrontVector/131072  7874533176 ns   7685312000 ns            1
-PushBackPopFrontDeque/64              341 ns          338 ns      2022280
-PushBackPopFrontDeque/512            2549 ns         2536 ns       264941 <-------
-PushBackPopFrontDeque/4096          20668 ns        20482 ns        34724
-PushBackPopFrontDeque/32768        165657 ns       164169 ns         4476
-PushBackPopFrontDeque/131072       704584 ns       696469 ns          918
-PushBackPopFrontCB/64                 268 ns          267 ns      2518158
-PushBackPopFrontCB/512               2165 ns         2154 ns       316741 <-------
-PushBackPopFrontCB/4096             17458 ns        17304 ns        40953
-PushBackPopFrontCB/32768           139908 ns       138743 ns         5194
-PushBackPopFrontCB/131072          557066 ns       553157 ns         1227
-PushBackPopFrontCBFixed/64           72.9 ns         72.4 ns     10068610
-PushBackPopFrontCBFixed/512           547 ns          542 ns      1231484 <-------
-PushBackPopFrontCBFixed/4096         4199 ns         4184 ns       163514
-PushBackPopFrontCBFixed/32768       40387 ns        37890 ns        20056
-PushBackPopFrontCBFixed/131072     141691 ns       140129 ns         5321
+WarmUp                         1381855011 ns   1361956000 ns            1
+PushBackPopFrontVector/64             720 ns          714 ns      1036039
+PushBackPopFrontVector/512          37145 ns        36969 ns        18381 <---
+PushBackPopFrontVector/4096       2337917 ns      2319706 ns          316
+PushBackPopFrontVector/32768    389517546 ns    388184000 ns            2
+PushBackPopFrontVector/131072  7379488945 ns   7323585000 ns            1
+PushBackPopFrontDeque/64              338 ns          337 ns      2043557
+PushBackPopFrontDeque/512            2574 ns         2559 ns       270345 <---
+PushBackPopFrontDeque/4096          20255 ns        20128 ns        35198
+PushBackPopFrontDeque/32768        163738 ns       162509 ns         4525
+PushBackPopFrontDeque/131072       670253 ns       666455 ns         1069
+PushBackPopFrontCB/64                 267 ns          267 ns      2541970
+PushBackPopFrontCB/512               2151 ns         2141 ns       312269 <---
+PushBackPopFrontCB/4096             17793 ns        17602 ns        41598
+PushBackPopFrontCB/32768           140099 ns       138972 ns         5171
+PushBackPopFrontCB/131072          555092 ns       552138 ns         1278
+PushBackPopFrontCBFixed/64           63.7 ns         63.3 ns     11532885
+PushBackPopFrontCBFixed/512           414 ns          413 ns      1655136 <---
+PushBackPopFrontCBFixed/4096         3323 ns         3305 ns       210897
+PushBackPopFrontCBFixed/32768       26578 ns        26373 ns        25653
+PushBackPopFrontCBFixed/131072     115291 ns       113762 ns         6640
 
 Process finished with exit code 0
