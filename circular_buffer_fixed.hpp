@@ -5,11 +5,15 @@
 #pragma once
 
 #include <vector>
-#include <concepts>
 #include <type_traits>
 #include <cstddef>
 #include <stdexcept>
 #include <utility>
+#include <functional>
+
+#ifdef __cpp_concepts
+#include <concepts>
+#endif
 
 namespace culib {
 
