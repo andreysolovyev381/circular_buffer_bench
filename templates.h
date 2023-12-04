@@ -128,7 +128,6 @@ int push_back_then_pop_front (Container &container, std::size_t iterations) {
 		}
 		else if constexpr (std::is_same_v<Container, culib::CircularBufferFixed<typename Container::value_type>>) {
 			container.push(double_value);
-			container.pop();
 		}
 		count += count / double_value;
 	}
